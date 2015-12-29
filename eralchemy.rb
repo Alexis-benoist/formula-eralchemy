@@ -1,4 +1,5 @@
 class Eralchemy < Formula
+  desc "Simple entity relation (ER) diagrams generation"
   homepage "https://github.com/Alexis-benoist/eralchemy"
   url "https://pypi.python.org/packages/source/E/ERAlchemy/ERAlchemy-1.0.0.tar.gz"
   sha256 "1feee184852f66a8bfc386474ef9a1ae68f1bb6d773e7bf6c421df8b769abe39"
@@ -32,6 +33,6 @@ class Eralchemy < Formula
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
   test do
-     system "#{bin}/eralchemy", "-v"
+    system "#{bin}/eralchemy", "-v"
   end
 end
