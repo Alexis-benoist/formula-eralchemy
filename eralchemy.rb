@@ -4,6 +4,8 @@ class Eralchemy < Formula
   sha256 "1feee184852f66a8bfc386474ef9a1ae68f1bb6d773e7bf6c421df8b769abe39"
 
   depends_on :python if MacOS.version <= :snow_leopard
+  depends_on "graphviz"
+  depends_on "pkg-config" => :build
 
   resource "pygraphviz" do
     url "https://pypi.python.org/packages/source/p/pygraphviz/pygraphviz-1.3.1.tar.gz"
