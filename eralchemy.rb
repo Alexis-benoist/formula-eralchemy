@@ -1,8 +1,8 @@
 class Eralchemy < Formula
   desc "Simple entity relation (ER) diagrams generation"
   homepage "https://github.com/Alexis-benoist/eralchemy"
-  url "https://pypi.python.org/packages/source/E/ERAlchemy/ERAlchemy-1.0.0.tar.gz"
-  sha256 "1feee184852f66a8bfc386474ef9a1ae68f1bb6d773e7bf6c421df8b769abe39"
+  url "https://pypi.python.org/packages/source/E/ERAlchemy/ERAlchemy-1.0.1.tar.gz"
+  sha256 "98425b21fe0f12ff33e72789c8a308baa1c2d5fdf157388162deaa510551da4f"
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "graphviz"
@@ -31,8 +31,5 @@ class Eralchemy < Formula
 
     bin.install Dir[libexec/"bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
-  end
-  test do
-    system "#{bin}/eralchemy", "-v"
   end
 end
