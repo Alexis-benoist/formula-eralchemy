@@ -36,3 +36,4 @@ class Eralchemy < Formula
     system "#{bin}/eralchemy", "-v"
   end
 end
+
