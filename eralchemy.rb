@@ -36,9 +36,9 @@ class Eralchemy < Formula
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
   test do
-    resource('er_example').stage do
-    system "#{bin}/eralchemy", '-i',  "/Library/Caches/Homebrew/eralchemy--er_example-1.0.1.er", '-o', 'test_eralchemy.pdf'
-    File.exist?('test_eralchemy.pdf')
-    end
+    resource("er_example").stage do
+      system "#{bin}/eralchemy", "-i", "/Library/Caches/Homebrew/eralchemy--er_example-1.0.1.er", "-o", "test_eralchemy.pdf"
+      File.exist?("test_eralchemy.pdf")
     end
   end
+end
