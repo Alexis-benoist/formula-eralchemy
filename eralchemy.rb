@@ -17,6 +17,7 @@ class Eralchemy < Formula
     url "https://pypi.python.org/packages/source/S/SQLAlchemy/SQLAlchemy-1.0.11.tar.gz"
     sha256 "0b24729787fa1455009770880ea32b1fa5554e75170763b1aef8b1eb470de8a3"
   end
+
   resource "er_example" do
     url "https://raw.githubusercontent.com/Alexis-benoist/eralchemy/v1.0.1/example/newsmeme.er"
     sha256 "5c475bacd91a63490e1cbbd1741dc70a3435e98161b5b9458d195ee97f40a3fa"
@@ -35,10 +36,12 @@ class Eralchemy < Formula
     bin.install Dir[libexec/"bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
+
   test do
+    system "#{bin}/eralchemy", "-v"
     resource("er_example").stage do
       system "#{bin}/eralchemy", "-i", "/Library/Caches/Homebrew/eralchemy--er_example-1.0.1.er", "-o", "test_eralchemy.pdf"
-      File.exist?("test_eralchemy.pdf")
+      assert File.exist?("test_eralchemy.pdf")
     end
   end
 end
