@@ -4,6 +4,13 @@ class Eralchemy < Formula
   url "https://pypi.python.org/packages/source/E/ERAlchemy/ERAlchemy-1.0.1.tar.gz"
   sha256 "98425b21fe0f12ff33e72789c8a308baa1c2d5fdf157388162deaa510551da4f"
 
+  bottle do
+    cellar :any
+    sha256 "53e20a26f69a3530b499e540a9e33eeb4cf4a125625c0ff9369204c540192eff" => :el_capitan
+    sha256 "0d84f7a2fdf7985630487934b280205a603ec591a38c0068921b0be4a1ccc0a2" => :yosemite
+    sha256 "9fe62f2286c31683490a44275f99cc92f79ce449b58099f48b1801bd2b9c8e7e" => :mavericks
+  end
+
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "graphviz"
   depends_on "pkg-config" => :build
@@ -18,13 +25,19 @@ class Eralchemy < Formula
     sha256 "0b24729787fa1455009770880ea32b1fa5554e75170763b1aef8b1eb470de8a3"
   end
 
+  resource "psycopg2" do
+    url "https://pypi.python.org/packages/source/p/psycopg2/psycopg2-2.6.1.tar.gz"
+    sha256 "6acf9abbbe757ef75dc2ecd9d91ba749547941abaffbe69ff2086a9e37d4904c"
+  end
+
   resource "er_example" do
     url "https://raw.githubusercontent.com/Alexis-benoist/eralchemy/v1.0.1/example/newsmeme.er"
     sha256 "5c475bacd91a63490e1cbbd1741dc70a3435e98161b5b9458d195ee97f40a3fa"
   end
+
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    %w[pygraphviz SQLAlchemy].each do |r|
+    %w[pygraphviz SQLAlchemy psycopg2].each do |r|
       resource(r).stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
@@ -40,7 +53,7 @@ class Eralchemy < Formula
   test do
     system "#{bin}/eralchemy", "-v"
     resource("er_example").stage do
-      system "#{bin}/eralchemy", "-i", "/Library/Caches/Homebrew/eralchemy--er_example-1.0.1.er", "-o", "test_eralchemy.pdf"
+      system "#{bin}/eralchemy", "-i", "newsmeme.er", "-o", "test_eralchemy.pdf"
       assert File.exist?("test_eralchemy.pdf")
     end
   end
