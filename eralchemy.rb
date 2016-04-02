@@ -14,6 +14,7 @@ class Eralchemy < Formula
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "graphviz"
   depends_on "pkg-config" => :build
+  depends_on "postgresql" => :optional
 
   resource "pygraphviz" do
     url "https://pypi.python.org/packages/source/p/pygraphviz/pygraphviz-1.3.1.tar.gz"
@@ -37,12 +38,18 @@ class Eralchemy < Formula
 
   def install
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    %w[pygraphviz SQLAlchemy psycopg2].each do |r|
+    %w[pygraphviz SQLAlchemy].each do |r|
       resource(r).stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
-
+    
+    if build.with?("postgresql")
+      puts "Install psycopg2"
+      resource(psycopg2).stage do
+        system "python", *Language::Python.setup_install_args(libexec/"vendor")
+      end
+    end
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
     system "python", *Language::Python.setup_install_args(libexec)
 
