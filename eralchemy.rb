@@ -11,7 +11,7 @@ class Eralchemy < Formula
     sha256 "9fe62f2286c31683490a44275f99cc92f79ce449b58099f48b1801bd2b9c8e7e" => :mavericks
   end
   
-  option "with-postgres", "With PostgreSQL support"
+  option "with-postgresql", "With PostgreSQL support"
 
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "graphviz"
