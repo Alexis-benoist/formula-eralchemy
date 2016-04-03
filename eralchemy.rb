@@ -10,10 +10,11 @@ class Eralchemy < Formula
     sha256 "0d84f7a2fdf7985630487934b280205a603ec591a38c0068921b0be4a1ccc0a2" => :yosemite
     sha256 "9fe62f2286c31683490a44275f99cc92f79ce449b58099f48b1801bd2b9c8e7e" => :mavericks
   end
-  
+
   depends_on :python if MacOS.version <= :snow_leopard
-  depends_on "graphviz"
   depends_on "pkg-config" => :build
+  depends_on "graphviz"
+  depends_on "openssl"
   depends_on :postgresql => :optional
 
   resource "pygraphviz" do
@@ -45,7 +46,7 @@ class Eralchemy < Formula
     end
 
     if build.with?("postgresql")
-resource(psycopg2).stage do
+      resource("psycopg2").stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
