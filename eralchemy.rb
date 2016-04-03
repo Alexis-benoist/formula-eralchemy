@@ -11,12 +11,10 @@ class Eralchemy < Formula
     sha256 "9fe62f2286c31683490a44275f99cc92f79ce449b58099f48b1801bd2b9c8e7e" => :mavericks
   end
   
-  option "with-postgresql", "With PostgreSQL support"
-
   depends_on :python if MacOS.version <= :snow_leopard
   depends_on "graphviz"
   depends_on "pkg-config" => :build
-  depends_on "postgresql" => :optional
+  depends_on :postgresql => :optional
 
   resource "pygraphviz" do
     url "https://pypi.python.org/packages/source/p/pygraphviz/pygraphviz-1.3.1.tar.gz"
