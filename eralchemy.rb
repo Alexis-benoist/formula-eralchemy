@@ -43,10 +43,9 @@ class Eralchemy < Formula
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
-    
+
     if build.with?("postgresql")
-      puts "Install psycopg2"
-      resource(psycopg2).stage do
+resource(psycopg2).stage do
         system "python", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
